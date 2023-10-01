@@ -1,4 +1,4 @@
-## Business-Intelligence-Dashboard
+# Business-Intelligence-Dashboard
 
 ## Cài đặt REDASH - TOOL VISUALIZE
 
