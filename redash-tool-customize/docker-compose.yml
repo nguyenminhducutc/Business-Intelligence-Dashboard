@@ -1,0 +1,44 @@
+version: "2"
+x-redash-service: &redash-service
+  image: redash:version1
+  # build: .
+  # depends_on:
+  #   - postgres
+  #   - redis
+  env_file: .env
+  restart: always
+services:
+  server:
+    <<: *redash-service
+    command: server
+    # volumes:
+    #   - ./redash_server:/app
+    ports:
+      - "5001:5000"
+    environment:
+      REDASH_WEB_WORKERS: 4
+  scheduler:
+    <<: *redash-service
+    command: scheduler
+    # volumes:
+    #   - ./redash_scheduler:/app
+    environment:
+      QUEUES: "celery"
+      WORKERS_COUNT: 1
+  scheduled_worker:
+    <<: *redash-service
+    command: worker
+    # volumes:
+    #   - ./redash_scheduled_worker:/app
+    environment:
+      QUEUES: "scheduled_queries,schemas"
+      WORKERS_COUNT: 1
+  adhoc_worker:
+    <<: *redash-service
+    command: worker
+    # volumes:
+    #   - ./redash_adhoc_worker:/app
+    environment:
+      QUEUES: "queries"
+      WORKERS_COUNT: 2
+
