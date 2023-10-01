@@ -58,3 +58,6 @@ Lỗi 2: Không kết nối được redis (cannot connect redis refuse)
 * sửa `supervised systemd`
 * Lưu ý: Có thể cài đặt redis bằng docker
 
+### Dashboard
+![APP](/images/dashboard.png)
+
